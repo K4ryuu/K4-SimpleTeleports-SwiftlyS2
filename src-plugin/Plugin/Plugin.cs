@@ -12,7 +12,7 @@ using SwiftlyS2.Shared.Plugins;
 
 namespace K4SimpleTeleports;
 
-[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.0", Name = "K4-SimpleTeleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
+[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.0", Name = "K4 - Simple Teleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
 public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 {
 	internal new ISwiftlyCore Core => base.Core;
