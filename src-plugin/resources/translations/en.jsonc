@@ -1,0 +1,44 @@
+{
+  "k4.stp.prefix": "[silver][ [lime]Teleport [silver]]",
+
+  "k4.stp.usage.tp": "[yellow]Usage: !tp <target> [target2 | x y z]",
+  "k4.stp.usage.goto": "[yellow]Usage: !goto <target>",
+  "k4.stp.usage.bring": "[yellow]Usage: !bring <target>",
+  "k4.stp.usage.tphere": "[yellow]Usage: !tphere <target>",
+  "k4.stp.usage.swap": "[yellow]Usage: !swap <target1> <target2>",
+  "k4.stp.usage.bury": "[yellow]Usage: !bury <target>",
+  "k4.stp.usage.unbury": "[yellow]Usage: !unbury <target>",
+
+  "k4.stp.error.no_target_alive": "[lightred]No alive target found.",
+  "k4.stp.error.multiple_targets": "[lightred]Multiple targets found. Be more specific.",
+  "k4.stp.error.no_saved_position": "[lightred]No saved position found for this player.",
+  "k4.stp.error.invalid_coordinates": "[lightred]Invalid coordinates. Usage: !tp <target> <x> <y> <z>",
+  "k4.stp.error.cannot_target_self": "[lightred]You cannot target yourself with this command.",
+  "k4.stp.error.need_two_targets": "[lightred]You need to specify two different targets for swap.",
+
+  "k4.stp.tp.player_to_player": "[silver]Teleported [lime]{0}[silver] to [lime]{1}[silver].",
+  "k4.stp.tp.player_to_coords": "[silver]Teleported [lime]{0}[silver] to [lime]{1}, {2}, {3}[silver].",
+  "k4.stp.tp.you_were_teleported_to_player": "[silver]You were teleported to [lime]{0}[silver].",
+  "k4.stp.tp.you_were_teleported_to_coords": "[silver]You were teleported to [lime]{0}, {1}, {2}[silver].",
+
+  "k4.stp.goto.success": "[silver]You teleported to [lime]{0}[silver].",
+
+  "k4.stp.bring.success": "[silver]Brought [lime]{0}[silver] to your aim position.",
+  "k4.stp.bring.you_were_brought": "[silver]You were brought by [lime]{0}[silver].",
+
+  "k4.stp.tphere.success": "[silver]Teleported [lime]{0}[silver] to your position.",
+  "k4.stp.tphere.you_were_teleported": "[silver]You were teleported to [lime]{0}[silver].",
+
+  "k4.stp.swap.success": "[silver]Swapped positions of [lime]{0}[silver] and [lime]{1}[silver].",
+  "k4.stp.swap.you_were_swapped": "[silver]Your position was swapped with [lime]{0}[silver].",
+
+  "k4.stp.return.success": "[silver]Returned [lime]{0}[silver] to their previous position.",
+  "k4.stp.return.self_success": "[silver]Returned to your previous position.",
+  "k4.stp.return.you_were_returned": "[silver]You were returned to your previous position.",
+
+  "k4.stp.bury.success": "[silver]Buried [lime]{0}[silver].",
+  "k4.stp.bury.you_were_buried": "[silver]You were buried by [lime]{0}[silver].",
+
+  "k4.stp.unbury.success": "[silver]Unburied [lime]{0}[silver].",
+  "k4.stp.unbury.you_were_unburied": "[silver]You were unburied by [lime]{0}[silver]."
+}
