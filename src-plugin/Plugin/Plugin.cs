@@ -12,44 +12,46 @@ using SwiftlyS2.Shared.Plugins;
 
 namespace K4SimpleTeleports;
 
-[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.0", Name = "K4 - Simple Teleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
+[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.1", Name = "K4 - Simple Teleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
 public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 {
+	private const string ConfigFileName = "config.json";
+	private const string ConfigSection = "K4SimpleTeleports";
+
 	internal new ISwiftlyCore Core => base.Core;
-	internal PluginConfig Config { get; private set; } = null!;
+	internal static IOptionsMonitor<PluginConfig> Config { get; private set; } = null!;
 	internal readonly Dictionary<ulong, Vector> SavedPositions = [];
 
 	public override void Load(bool hotReload)
 	{
-		// Configuration
-		const string ConfigFileName = "config.json";
-		const string ConfigSection = "K4SimpleTeleports";
-
 		Core.Configuration
 			.InitializeJsonWithModel<PluginConfig>(ConfigFileName, ConfigSection)
-			.Configure(cfg => cfg.AddJsonFile(Core.Configuration.GetConfigPath(ConfigFileName), optional: false, reloadOnChange: true));
+			.Configure(builder =>
+			{
+				builder.AddJsonFile(ConfigFileName, optional: false, reloadOnChange: true);
+			});
 
 		ServiceCollection services = new();
 		services.AddSwiftly(Core)
-			.AddOptionsWithValidateOnStart<PluginConfig>()
-			.BindConfiguration(ConfigSection);
+			.AddOptions<PluginConfig>()
+			.BindConfiguration(ConfigFileName);
 
 		var provider = services.BuildServiceProvider();
-		Config = provider.GetRequiredService<IOptions<PluginConfig>>().Value;
+		Config = provider.GetRequiredService<IOptionsMonitor<PluginConfig>>();
 
 		// Events
 		Core.GameEvent.HookPost<EventRoundStart>(OnRoundStart);
 		Core.Event.OnMapUnload += OnMapUnload;
 
 		// Commands
-		RegisterCommand(Config.Commands.Tp, TpCommand.OnCommand);
-		RegisterCommand(Config.Commands.Goto, GotoCommand.OnCommand);
-		RegisterCommand(Config.Commands.Bring, BringCommand.OnCommand);
-		RegisterCommand(Config.Commands.TpHere, TpHereCommand.OnCommand);
-		RegisterCommand(Config.Commands.Swap, SwapCommand.OnCommand);
-		RegisterCommand(Config.Commands.Return, ReturnCommand.OnCommand);
-		RegisterCommand(Config.Commands.Bury, BuryCommand.OnCommand);
-		RegisterCommand(Config.Commands.Unbury, UnburyCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Tp, TpCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Goto, GotoCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Bring, BringCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.TpHere, TpHereCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Swap, SwapCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Return, ReturnCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Bury, BuryCommand.OnCommand);
+		RegisterCommand(Config.CurrentValue.Commands.Unbury, UnburyCommand.OnCommand);
 	}
 
 	public override void Unload()
@@ -111,7 +113,7 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 	{
 		var searchMode = TargetSearchMode.IncludeSelf;
 
-		if (!allowMultiple || !Config.AllowMultipleTargets)
+		if (!allowMultiple || !Config.CurrentValue.AllowMultipleTargets)
 		{
 			searchMode |= TargetSearchMode.NoMultipleTargets;
 		}

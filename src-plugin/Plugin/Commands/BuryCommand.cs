@@ -26,7 +26,7 @@ public static class BuryCommand
 			return;
 		}
 
-		if (targets.Count > 1 && !plugin.Config.AllowMultipleTargets)
+		if (targets.Count > 1 && !Plugin.Config.CurrentValue.AllowMultipleTargets)
 		{
 			ctx.Reply($"{localizer["k4.stp.prefix"]} {localizer["k4.stp.error.multiple_targets"]}");
 			return;
