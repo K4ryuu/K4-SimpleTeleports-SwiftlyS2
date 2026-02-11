@@ -12,7 +12,7 @@ using SwiftlyS2.Shared.Plugins;
 
 namespace K4SimpleTeleports;
 
-[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.1", Name = "K4 - Simple Teleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
+[PluginMetadata(Id = "k4.simpleteleports", Version = "1.0.2", Name = "K4 - Simple Teleports", Author = "K4ryuu", Description = "Simple teleport commands for Counter-Strike: 2 using SwiftlyS2 framework.")]
 public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 {
 	private const string ConfigFileName = "config.json";
@@ -33,8 +33,8 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 
 		ServiceCollection services = new();
 		services.AddSwiftly(Core)
-			.AddOptions<PluginConfig>()
-			.BindConfiguration(ConfigFileName);
+			.AddOptionsWithValidateOnStart<PluginConfig>()
+			.BindConfiguration(ConfigSection);
 
 		var provider = services.BuildServiceProvider();
 		Config = provider.GetRequiredService<IOptionsMonitor<PluginConfig>>();

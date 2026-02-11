@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2] - 2026-02-11
+
+### Fixed
+
+- **CRITICAL**: Fixed configuration binding bug in `Load()` method
+  - Changed `.BindConfiguration(ConfigFileName)` to `.BindConfiguration(ConfigSection)`
+  - This bug caused all config values to use hardcoded defaults instead of reading from `config.json`
+  - **Impact**: Plugin configuration was completely non-functional - all command settings, permissions, and multi-target settings were ignored
+
 ## [1.0.1] - 2025-12-12
 
 ### Changed
