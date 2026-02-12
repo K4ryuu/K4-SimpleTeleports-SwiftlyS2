@@ -10,12 +10,13 @@ jobs:
     permissions:
       issues: write
       contents: read
+      repository-projects: write
 
     steps:
       - name: Auto-label and add to project
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.PROJECT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
             const issueAuthor = issue.user.login;
